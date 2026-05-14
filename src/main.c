@@ -44,9 +44,11 @@ void IRQ_handler() {
 
 int wall_clock(TIMER* t) {
   int i, ss, mm, hh;
+  lock();
   ss = t->ss;
   mm = t->mm;
   hh = t->hh;  // copy from timer struct
+  unlock();
   for (i = 0; i < 8; i++) unkpchar(t->clock[i], 0, 70 + i);
   t->clock[7] = '0' + (ss % 10);
   t->clock[6] = '0' + (ss / 10);
